@@ -1,4 +1,5 @@
 import hashlib
+import json
 import re
 from datetime import datetime
 from pathlib import Path
@@ -28,48 +29,62 @@ def parse_external_vars(content):
     return external_vars
 
 
-def save_response(name, response):
+def save_response(name, response, prettify=False):
     current_file_path = CURRENT_FILES_PATH / name
 
-    # Check if the file was changed
-    current_hash = hashlib.sha256(response.content).hexdigest()
+    content = response.content
+    # Try to format the response better for Git diffs
+    if prettify:
+        try:
+            decoded_json = json.loads(content.decode('utf8'))
+            content = json.dumps(decoded_json, indent=4).encode('utf8')
+        except json.JSONDecodeError as e:
+            print(f'failed to prettify response for {name}: {e}')
+
+    # Check if the (prettified) file was changed. This will miss any purely
+    # formatting related changes, but we don't really care about those.
+    current_hash = hashlib.sha256(content).hexdigest()
     existing_hash = None
     if current_file_path.exists():
         with open(current_file_path, 'rb') as f:
             old_content = f.read()
             existing_hash = hashlib.sha256(old_content).hexdigest()
 
-    if existing_hash != current_hash:
-        print(f'file "{name}" was changed ({existing_hash} -> {current_hash})')
+    if existing_hash == current_hash:
+        print(f'file "{name}" has not changed ({current_hash}')
+        return
 
-        with open(current_file_path, 'wb') as f:
-            f.write(response.content)
+    print(f'file "{name}" was changed ({existing_hash} -> {current_hash})')
 
-        # Try grabbing a timestamp from the HTTP caching headers. Otherwise,
-        # fall back to the current time
-        timestamp = datetime.utcnow()
-        if 'Last-Modified' in response.headers:
-            timestamp = datetime.strptime(response.headers['Last-Modified'], '%a, %d %b %Y %H:%M:%S %Z')
+    with open(current_file_path, 'wb') as f:
+        f.write(content)
 
-        formatted_timestamp = timestamp.isoformat(timespec='seconds').replace(':', '-')
+    # Try grabbing a timestamp from the HTTP caching headers. Otherwise,
+    # fall back to the current time
+    timestamp = datetime.utcnow()
+    if 'Last-Modified' in response.headers:
+        timestamp = datetime.strptime(response.headers['Last-Modified'], '%a, %d %b %Y %H:%M:%S %Z')
 
-        file_name, file_ext = name.rsplit('.', 1)
-        historical_file_name = f'{file_name}_{formatted_timestamp}_{current_hash}.{file_ext}'
-        historical_file_path = HISTORICAL_FILES_PATH / historical_file_name
+    formatted_timestamp = timestamp.isoformat(timespec='seconds').replace(':', '-')
 
-        print(f'saving copy to {historical_file_path}')
+    file_name, file_ext = name.rsplit('.', 1)
+    historical_file_name = f'{file_name}_{formatted_timestamp}_{current_hash}.{file_ext}'
+    historical_file_path = HISTORICAL_FILES_PATH / historical_file_name
 
-        with open(historical_file_path, 'wb') as f:
-            f.write(response.content)
+    print(f'saving copy to {historical_file_path}')
 
-        # Update the README
-        with open(README_PATH, 'r') as f:
-            readme = f.read()
-        with open(README_PATH, 'w') as f:
-            f.write(re.sub(
-                fr'\[`{re.escape(name)}`](.*)\|(.*)\|',
-                f'[`{name}`]\\1| `{formatted_timestamp}` |',
-                readme))
+    # Save the raw, un-prettified response to the historical file
+    with open(historical_file_path, 'wb') as f:
+        f.write(response.content)
+
+    # Update the README
+    with open(README_PATH, 'r') as f:
+        readme = f.read()
+    with open(README_PATH, 'w') as f:
+        f.write(re.sub(
+            fr'\[`{re.escape(name)}`](.*)\|(.*)\|',
+            f'[`{name}`]\\1| `{formatted_timestamp}` |',
+            readme))
 
 
 def main():
@@ -77,7 +92,7 @@ def main():
         HISTORICAL_FILES_PATH.mkdir()
 
     r = httpx.get(CLIENT_URLS_URL)
-    save_response('client_urls.txt', r)
+    save_response('client_urls.txt', r, prettify=True)
 
     r = httpx.get(EXTERNAL_VARS_URL)
     save_response('external_vars.txt', r)
