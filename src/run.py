@@ -15,6 +15,12 @@ CURRENT_FILES_PATH = Path('.').resolve()
 HISTORICAL_FILES_PATH = Path('./history').resolve()
 README_PATH = CURRENT_FILES_PATH / 'README.md'
 
+
+def get_http_client():
+    transport = httpx.HTTPTransport(retries=3)
+    return httpx.Client(transport=transport)
+
+
 def parse_external_vars(content):
     external_vars = {}
 
@@ -31,6 +37,11 @@ def parse_external_vars(content):
 
 def save_response(name, response, prettify=False):
     current_file_path = CURRENT_FILES_PATH / name
+
+    # Try grabbing a timestamp from the HTTP caching headers
+    timestamp = None
+    if 'Last-Modified' in response.headers:
+        timestamp = datetime.strptime(response.headers['Last-Modified'], '%a, %d %b %Y %H:%M:%S %Z')
 
     content = response.content
     # Try to format the response better for Git diffs
@@ -51,7 +62,7 @@ def save_response(name, response, prettify=False):
             existing_hash = hashlib.sha256(old_content).hexdigest()
 
     if existing_hash == current_hash:
-        print(f'file "{name}" has not changed ({current_hash}')
+        print(f'file "{name}" has not changed (last modified {timestamp}; {current_hash})')
         return
 
     print(f'file "{name}" was changed ({existing_hash} -> {current_hash})')
@@ -59,12 +70,8 @@ def save_response(name, response, prettify=False):
     with open(current_file_path, 'wb') as f:
         f.write(content)
 
-    # Try grabbing a timestamp from the HTTP caching headers. Otherwise,
-    # fall back to the current time
-    timestamp = datetime.utcnow()
-    if 'Last-Modified' in response.headers:
-        timestamp = datetime.strptime(response.headers['Last-Modified'], '%a, %d %b %Y %H:%M:%S %Z')
-
+    if not timestamp:
+        timestamp = datetime.utcnow()
     formatted_timestamp = timestamp.isoformat(timespec='seconds').replace(':', '-')
 
     file_name, file_ext = name.rsplit('.', 1)
@@ -91,10 +98,12 @@ def main():
     if not HISTORICAL_FILES_PATH.exists():
         HISTORICAL_FILES_PATH.mkdir()
 
-    r = httpx.get(CLIENT_URLS_URL)
+    http_client = get_http_client()
+
+    r = http_client.get(CLIENT_URLS_URL)
     save_response('client_urls.txt', r, prettify=True)
 
-    r = httpx.get(EXTERNAL_VARS_URL)
+    r = http_client.get(EXTERNAL_VARS_URL)
     save_response('external_vars.txt', r)
 
     parsed_external_vars = parse_external_vars(r.content)
@@ -104,15 +113,15 @@ def main():
     external_override_texts_url = parsed_external_vars.get(b'external.override.texts.txt', None)
 
     if external_texts_url:
-        r = httpx.get(external_texts_url.decode())
+        r = http_client.get(external_texts_url.decode())
         save_response('external_texts.txt', r)
 
     if external_figure_part_list_url:
-        r = httpx.get(external_figure_part_list_url.decode())
+        r = http_client.get(external_figure_part_list_url.decode())
         save_response('figuredata.txt', r)
 
     if external_override_texts_url:
-        r = httpx.get(external_override_texts_url.decode())
+        r = http_client.get(external_override_texts_url.decode())
         save_response('external_flash_override_texts.txt', r)
 
 
