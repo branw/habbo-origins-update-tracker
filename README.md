@@ -7,7 +7,7 @@ Origins.
 |------------------------------------------------------------------------------------------------------------------------------------------|-----------------------|
 | [`client_urls.txt`](https://github.com/branw/habbo-origins-update-tracker/blob/main/client_urls.txt)                                     | `2025-01-09T12-51-59` |
 | [`external_vars.txt`](https://github.com/branw/habbo-origins-update-tracker/blob/main/external_vars.txt)                                 | `2025-01-09T12-52-13` |
-| [`external_texts.txt`](https://github.com/branw/habbo-origins-update-tracker/blob/main/external_texts.txt)                               | `2025-01-03T10-12-08` |
+| [`external_texts.txt`](https://github.com/branw/habbo-origins-update-tracker/blob/main/external_texts.txt)                               | `2025-01-09T14-27-01` |
 | [`figuredata.txt`](https://github.com/branw/habbo-origins-update-tracker/blob/main/figuredata.txt)                                       | `2024-12-17T17-22-53` |
 | [`external_flash_override_texts.txt`](https://github.com/branw/habbo-origins-update-tracker/blob/main/external_flash_override_texts.txt) | `2024-12-11T10-34-21` |
 
