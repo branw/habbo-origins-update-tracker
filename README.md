@@ -5,7 +5,7 @@ Origins.
 
 | File                                                                                                                                     | Last Detected Update* |
 |------------------------------------------------------------------------------------------------------------------------------------------|-----------------------|
-| [`client_urls.txt`](https://github.com/branw/habbo-origins-update-tracker/blob/main/client_urls.txt)                                     | `2025-01-09T12-51-59` |
+| [`client_urls.txt`](https://github.com/branw/habbo-origins-update-tracker/blob/main/client_urls.txt)                                     | `2025-01-10T02-10-01` |
 | [`external_vars.txt`](https://github.com/branw/habbo-origins-update-tracker/blob/main/external_vars.txt)                                 | `2025-01-09T12-52-13` |
 | [`external_texts.txt`](https://github.com/branw/habbo-origins-update-tracker/blob/main/external_texts.txt)                               | `2025-01-09T17-36-51` |
 | [`figuredata.txt`](https://github.com/branw/habbo-origins-update-tracker/blob/main/figuredata.txt)                                       | `2024-12-17T17-22-53` |
