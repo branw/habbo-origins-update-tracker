@@ -9,7 +9,7 @@ Origins.
 | [`external_vars.txt`](https://github.com/branw/habbo-origins-update-tracker/blob/main/external_vars.txt)                                 | `2025-03-21T22-05-01` |
 | [`external_texts.txt`](https://github.com/branw/habbo-origins-update-tracker/blob/main/external_texts.txt)                               | `2025-03-22T23-14-48` |
 | [`figuredata.txt`](https://github.com/branw/habbo-origins-update-tracker/blob/main/figuredata.txt)                                       | `2025-03-12T14-20-47` |
-| [`external_flash_override_texts.txt`](https://github.com/branw/habbo-origins-update-tracker/blob/main/external_flash_override_texts.txt) | `2025-03-27T09-30-02` |
+| [`external_flash_override_texts.txt`](https://github.com/branw/habbo-origins-update-tracker/blob/main/external_flash_override_texts.txt) | `2025-03-27T09-40-50` |
 
 _* In some cases (e.g. `client_urls.txt`), this is the timestamp that the
 scraper first saw the change, rather than when the change exactly occurred._
