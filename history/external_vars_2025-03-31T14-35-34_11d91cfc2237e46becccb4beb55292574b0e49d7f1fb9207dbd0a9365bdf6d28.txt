@@ -106,4 +106,4 @@ url.prefix=origins.habbo.com
 
 external.texts.txt=http://origins-gamedata.habbo.com/external_texts/1
 external.figurepartlist.txt=http://origins-gamedata.habbo.com/figuredata_xml/1
-external.override.texts.txt=https://www.habbo.com/gamedata/override/external_flash_override_texts/a8d1f67a0acfadd54e6fd11c76d3cddf59e2e166
+external.override.texts.txt=https://www.habbo.com/gamedata/override/external_flash_override_texts/96e5a6361946ea3e13d556051a012aee5c72342d
