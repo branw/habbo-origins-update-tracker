@@ -1,8 +1,8 @@
 {
-    "shockwave-osx-version": "26",
+    "shockwave-osx-version": "116",
     "windows-version": "1053",
-    "shockwave-windows-version": "26",
-    "shockwave-windows": "https://images.habbo.com/habbo-native-clients/win/prod/shockwave/Habbo_Windows_4_1-030a335b-25fb-4cf4-9ffb-0ef37741d686.zip",
-    "shockwave-osx": "https://images.habbo.com/habbo-native-clients/osx/prod/shockwave/Habbo_MacOS_4_1-030a335b-25fb-4cf4-9ffb-0ef37741d686.zip",
+    "shockwave-windows-version": "116",
+    "shockwave-windows": "https://images.habbo.com/habbo-native-clients/win/prod/shockwave/Habbo_Windows_29_2_28f350bc-e64a-47de-96c5-931935ae7efb.zip",
+    "shockwave-osx": "https://images.habbo.com/habbo-native-clients/osx/prod/shockwave/Habbo_MacOS_29_2_28f350bc-e64a-47de-96c5-931935ae7efb.zip",
     "osx-version": "1053"
 }
