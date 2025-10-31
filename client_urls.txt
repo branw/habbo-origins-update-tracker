@@ -1,7 +1,8 @@
-<html>
-<head><title>404 Not Found</title></head>
-<body>
-<center><h1>404 Not Found</h1></center>
-<hr><center>nginx</center>
-</body>
-</html>
+{
+    "shockwave-osx-version": "230",
+    "windows-version": "1075",
+    "shockwave-windows-version": "230",
+    "shockwave-windows": "https://images.habbo.com/habbo-native-clients/win/prod/shockwave/Habbo_Windows_71_1_abd6355c-914a-4579-8958-30e47d868408.zip",
+    "shockwave-osx": "https://images.habbo.com/habbo-native-clients/osx/prod/shockwave/Habbo_MacOS_71_1_abd6355c-914a-4579-8958-30e47d868408.zip",
+    "osx-version": "1075"
+}
