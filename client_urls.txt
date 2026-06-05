@@ -1,7 +1,8 @@
-<html>
-<head>
-</head>
-<body>
-   <h1>Page Not Found</h1>
-</body>
-</html>
+{
+    "shockwave-osx-version": "317",
+    "windows-version": "1080",
+    "shockwave-windows-version": "317",
+    "shockwave-windows": "https://images.habbo.com/habbo-native-clients/win/prod/shockwave/Habbo_Windows_114_0_ccce10e7-0bd4-4694-8948-7fb26bc7de11.zip",
+    "shockwave-osx": "https://images.habbo.com/habbo-native-clients/osx/prod/shockwave/Habbo_MacOS_114_0_ccce10e7-0bd4-4694-8948-7fb26bc7de11.zip",
+    "osx-version": "1080"
+}
