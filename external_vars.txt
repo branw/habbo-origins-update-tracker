@@ -135,7 +135,6 @@ room.cast.3=hh_roomdimmer
 room.cast.private=["hh_room_private", "hh_room_landscapes"]
 room.default.floor=111
 room.default.wall=201
-room.dock.collapse.enabled=false
 room.model.creator.enabled=false
 shutter_showdown.enabled=true
 stats.tracking.url=http://server-fi.imrworldwide.com/cgi-bin/count?url=TCODE&cid=fi_habbohotel_0
@@ -150,4 +149,4 @@ url.prefix=origins.habbo.com
 
 external.texts.txt=http://origins-gamedata.habbo.com/external_texts/1
 external.figurepartlist.txt=http://origins-gamedata.habbo.com/figuredata_xml/1
-external.override.texts.txt=https://www.habbo.com/gamedata/override/external_flash_override_texts/43583013a0f943253a95a4bba8de7f68f20ee452
+external.override.texts.txt=https://www.habbo.com/gamedata/override/external_flash_override_texts/ed1b9e4e649cce99645d44f40ec4345772656383
